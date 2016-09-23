@@ -83,12 +83,12 @@ void ProxyFH16::setUp() {
         }
         const string TIMESTAMP = strTimeStampNoSpace.str();
 
-        const bool RECORD_GCM = (getKeyValueConfiguration().getValue<int32_t>("proxy-fh16.record_gcm") == 1);
+        const bool RECORD_GCM = (getKeyValueConfiguration().getValue<int>("proxy-fh16.record_gcm") == 1);
         if (RECORD_GCM) {
             setUpRecordingGenericCANMessage(TIMESTAMP);
         }
 
-        const bool RECORD_INCOMING_MAPPED = (getKeyValueConfiguration().getValue<int32_t>("proxy-fh16.record_incoming_mapped_data") == 1);
+        const bool RECORD_INCOMING_MAPPED = (getKeyValueConfiguration().getValue<int>("proxy-fh16.record_incoming_mapped_data") == 1);
         if (RECORD_INCOMING_MAPPED) {
             setUpRecordingIncomingMappedGenericCANMessage(TIMESTAMP);
         }
