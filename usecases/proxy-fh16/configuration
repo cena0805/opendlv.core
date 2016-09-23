@@ -73,6 +73,7 @@ odsupercomponent.pulsetimeack.exclude = odcockpit
 # CONFIGURATION FOR proxy-fh16
 #
 proxy-fh16.devicenode = /dev/pcanpci2 # PEAK CAN device.
-proxy-fh16.record_gcm = 1           # 1 = dump generic CAN messages.
+proxy-fh16.record_gcm = 1 # 1 = dump generic CAN messages.
 proxy-fh16.record_incoming_mapped_data = 1   # 1 = record mapped containers.
+proxy-fh16.record_mapped_data = 1
 proxy-fh16.record_outgoing_coming_mapped_data = 1
