@@ -88,7 +88,7 @@ class ProxyFH16 : public odcore::base::module::TimeTriggeredConferenceClientModu
     std::unique_ptr< odtools::recorder::Recorder > m_recorderGenericCanMessages;
 
     odcore::base::FIFOQueue m_fifoMappedCanMessages;
-    std::unique_ptr< odtools::recorder::Recorder > m_recorderMappedCanMessages;
+    std::unique_ptr< odtools::recorder::Recorder > m_recorderIncomingMappedCanMessages;
 
     std::shared_ptr< automotive::odcantools::CANDevice > m_device;
     std::unique_ptr< CanMessageDataStore > m_canMessageDataStore;

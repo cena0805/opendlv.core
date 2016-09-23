@@ -51,7 +51,7 @@ ProxyFH16::ProxyFH16(const int &argc, char **argv)
     , m_fifoGenericCanMessages()
     , m_recorderGenericCanMessages()
     , m_fifoMappedCanMessages()
-    , m_recorderMappedCanMessages()
+    , m_recorderIncomingMappedCanMessages()
     , m_device()
     , m_canMessageDataStore()
     , m_revereFh16CanMessageMapping()
@@ -146,7 +146,7 @@ void ProxyFH16::setUpRecordingIncomingMappedGenericCANMessage(const string &time
     const bool DUMP_SHARED_DATA = false;
 
     // Create a recorder instance.
-    m_recorderMappedCanMessages = unique_ptr< Recorder >(new Recorder(recordingUrl.str(), MEMORY_SEGMENT_SIZE, NUMBER_OF_SEGMENTS, THREADING, DUMP_SHARED_DATA));
+    m_recorderIncomingMappedCanMessages = unique_ptr< Recorder >(new Recorder(recordingUrl.str(), MEMORY_SEGMENT_SIZE, NUMBER_OF_SEGMENTS, THREADING, DUMP_SHARED_DATA));
 
     {
         {
@@ -278,7 +278,7 @@ void ProxyFH16::nextGenericCANMessage(const automotive::GenericCANMessage &gcm) 
         Container cTimeStamped = addCANTimeStamp(c, gcm.getDriverTimeStamp());
 
         // Enqueue mapped container for direct recording.
-        if (m_recorderMappedCanMessages.get()) {
+        if (m_recorderIncomingMappedCanMessages.get()) {
             cTimeStamped.setReceivedTimeStamp(gcm.getDriverTimeStamp());
             m_fifoMappedCanMessages.add(cTimeStamped);
         }
@@ -345,13 +345,13 @@ odcore::data::dmcp::ModuleExitCodeMessage::ModuleExitCode ProxyFH16::body() {
         }
 
         // Record mapped messages from GenericCANMessages.
-        if (m_recorderMappedCanMessages.get()) {
+        if (m_recorderIncomingMappedCanMessages.get()) {
             const uint32_t ENTRIES = m_fifoMappedCanMessages.getSize();
             for (uint32_t i = 0; i < ENTRIES; i++) {
                 Container c = m_fifoMappedCanMessages.leave();
 
                 // Store container to dump file.
-                m_recorderMappedCanMessages->store(c);
+                m_recorderIncomingMappedCanMessages->store(c);
 
                 // Transform container to CSV file.
                 dumpCSVData(c);
