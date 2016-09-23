@@ -88,9 +88,9 @@ void ProxyFH16::setUp() {
             setUpRecordingGenericCANMessage(TIMESTAMP);
         }
 
-        const bool RECORD_MAPPED = (getKeyValueConfiguration().getValue< int >("proxy-fh16.record_mapped_data") == 1);
-        if (RECORD_MAPPED) {
-            setUpRecordingMappedGenericCANMessage(TIMESTAMP);
+        const bool RECORD_INCOMING_MAPPED = (getKeyValueConfiguration().getValue< int >("proxy-fh16.record_incoming_mapped_data") == 1);
+        if (RECORD_INCOMING_MAPPED) {
+            setUpRecordingIncomingMappedGenericCANMessage(TIMESTAMP);
         }
 
         // Create a data sink that automatically receives all Containers and
@@ -125,11 +125,12 @@ void ProxyFH16::tearDown() {
     }
 }
 
-void ProxyFH16::setUpRecordingMappedGenericCANMessage(const string &timeStampForFileName) {
+void ProxyFH16::setUpRecordingIncomingMappedGenericCANMessage(const string &timeStampForFileName) {
     // URL for storing containers containing GenericCANMessages.
     stringstream recordingUrl;
     recordingUrl << "file://"
                  << "CID-" << getCID() << "_"
+                 << "incoming_"
                  << "can_mapped_data_" << timeStampForFileName << ".rec";
 
     // Size of memory segments (not needed for recording GenericCANMessages).
@@ -151,6 +152,7 @@ void ProxyFH16::setUpRecordingMappedGenericCANMessage(const string &timeStampFor
         {
             stringstream fileName;
             fileName << "CID-" << getCID() << "_"
+                     << "incoming_"
                      << "can_mapped_data_id-" << opendlv::proxy::reverefh16::ManualControl::ID() << "_" << timeStampForFileName << ".csv";
 
             // Create map of CSV transformers.
@@ -164,6 +166,7 @@ void ProxyFH16::setUpRecordingMappedGenericCANMessage(const string &timeStampFor
         {
             stringstream fileName;
             fileName << "CID-" << getCID() << "_"
+                     << "incoming_"
                      << "can_mapped_data_id-" << opendlv::proxy::reverefh16::Steering::ID() << "_" << timeStampForFileName << ".csv";
 
             // Create map of CSV transformers.
@@ -177,6 +180,7 @@ void ProxyFH16::setUpRecordingMappedGenericCANMessage(const string &timeStampFor
         {
             stringstream fileName;
             fileName << "CID-" << getCID() << "_"
+                     << "incoming_"
                      << "can_mapped_data_id-" << opendlv::proxy::reverefh16::Propulsion::ID() << "_" << timeStampForFileName << ".csv";
 
             // Create map of CSV transformers.

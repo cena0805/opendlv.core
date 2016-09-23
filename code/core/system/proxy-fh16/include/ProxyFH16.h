@@ -75,7 +75,7 @@ class ProxyFH16 : public odcore::base::module::TimeTriggeredConferenceClientModu
 
    private:
     void setUpRecordingGenericCANMessage(const std::string &timeStampForFileName);
-    void setUpRecordingMappedGenericCANMessage(const std::string &timeStampForFileName);
+    void setUpRecordingIncomingMappedGenericCANMessage(const std::string &timeStampForFileName);
 
    private:
     odcore::data::Container addCANTimeStamp(odcore::data::Container &c, const odcore::data::TimeStamp &ts);
