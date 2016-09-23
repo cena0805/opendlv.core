@@ -88,7 +88,7 @@ void ProxyFH16::setUp() {
             setUpRecordingGenericCANMessage(TIMESTAMP);
         }
 
-        const bool RECORD_INCOMING_MAPPED = (getKeyValueConfiguration().getValue< int >("proxy-fh16.record_incoming_mapped_data") == 1);
+        const bool RECORD_INCOMING_MAPPED = (getKeyValueConfiguration().getValue<int>("proxy-fh16.record_incoming_mapped_data") == 1);
         if (RECORD_INCOMING_MAPPED) {
             setUpRecordingIncomingMappedGenericCANMessage(TIMESTAMP);
         }
